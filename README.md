@@ -23,7 +23,7 @@
 
 ## 关于
 
-> Makeit Tooltip 气泡浮层组件，基于 Vue3.0 + Vite + JSX 开发，不承载复杂的文本信息，可以替代系统默认的 title 显示。
+> Makeit Tooltip 气泡浮层组件，基于 Vue3.0 + Vite + JSX 开发，不承载复杂的文本信息，可以替代系统默认的 title 显示，且能支持更多定制化的样式需求。
 
 ## 安装
 
