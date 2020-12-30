@@ -28,10 +28,16 @@ export default defineComponent({
         container: PropTypes.oneOfType([PropTypes.func, PropTypes.string, PropTypes.object]),
         destroy: PropTypes.bool.def(false)
     },
+    watch: {
+        visible(val: boolean) {
+            this.show = val
+        }
+    },
     data() {
         return {
             prefixCls: 'mi-tooltip',
             originEvents: {},
+            show: this.$props.visible,
             _container: null,
             _component: null
         }
@@ -64,17 +70,28 @@ export default defineComponent({
         },
         onMouseEnter(e: any) {
             this.fireEvents('onMouseEnter', e)
+            this.delayPopupVisible(true, this.delayShow, this.delayShow ? null : e)
         },
         onMouseLeave(e: any) {
             this.fireEvents('onMouseLeave', e)
+            this.delayPopupVisible(false, this.delayHide)
         },
         fireEvents(type: string, e: any) {
             if (this.originEvents[type]) this.originEvents[type](e)
             const event = this.$props[type] || this.$attrs[type]
             if (event) event(e)
         },
-        popupVisible(popupVisible, event: any) {
-
+        popupVisible(popupVisible: boolean, event: any) {
+            this.clearDelayTimer()
+            this.show = popupVisible
+            if (this.show || this.forceRender || this._component) {
+                return (
+                    <Teleport to={this._container} ref={this.saveContainer}>
+                        <div class={this.prefixCls} ref={this.prefixCls}></div>
+                    </Teleport>
+                )
+            }
+            return null
         },
         delayPopupVisible(visible: boolean, time: number, event: any) {
             const delay = time * 1000
