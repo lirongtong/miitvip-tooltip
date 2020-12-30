@@ -46,7 +46,7 @@ app.mount('#app')
 ## 示例
 ```vue
 <template>
-    <mi-tooltip></mi-tooltip>
+    <mi-tooltip title="提示信息"></mi-tooltip>
 </template>
 ```
 
