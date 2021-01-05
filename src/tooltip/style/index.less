@@ -1,0 +1,46 @@
+@mi-tooltip: mi-tooltip;
+
+.@{mi-tooltip} {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+
+    > [class*="mi-tooltip-"] {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-size: 14px;
+        position: absolute;
+        z-index: 1060;
+    }
+
+    &-content {
+        margin: 0;
+        padding: 0;
+    }
+
+    &-arrow {
+        position: absolute;
+        width: 16px;
+        height: 16px;
+        display: block;
+        background: transparent;
+        overflow: hidden;
+        pointer-events: none;
+    }
+
+    &-inner {
+        min-width: 30px;
+        min-height: 30px;
+        text-align: left;
+        letter-spacing: 2px;
+        color: #fff;
+        text-decoration: none;
+        border: 1px solid #f6ca9d;
+        line-height: 22px;
+        background: rgba(0, 0, 0, .75);
+        border-radius: 4px;
+        box-shadow: 0 0 8px rgba(0, 0, 0, .15);
+    }
+}

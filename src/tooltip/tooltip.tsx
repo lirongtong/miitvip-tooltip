@@ -1,4 +1,4 @@
-import { defineComponent, Teleport } from 'vue'
+import { defineComponent, Teleport, Transition, VNode, vShow, withDirectives } from 'vue'
 import PropTypes, { getSlot, tuple, getEvents } from '../utils/props'
 import tools from '../utils/tools'
 
@@ -38,6 +38,7 @@ export default defineComponent({
             prefixCls: 'mi-tooltip',
             originEvents: {},
             show: this.$props.visible,
+            position: {},
             _container: null,
             _component: null
         }
@@ -84,22 +85,25 @@ export default defineComponent({
         popupVisible(popupVisible: boolean, event: any) {
             this.clearDelayTimer()
             this.show = popupVisible
-            if (this.show || this.forceRender || this._component) {
-                return (
-                    <Teleport to={this._container} ref={this.saveContainer}>
-                        <div class={this.prefixCls} ref={this.prefixCls}></div>
-                    </Teleport>
-                )
+            if (event) {
+                const target = event.target
+                const width = target.offsetWidth
+                const offsetX = event.offsetX
+                const offsetY = event.offsetY
+                const halfWidth = Math.round(width / 2 * 100) / 100
+                this.position = {
+                    x: event.pageX - offsetX,
+                    y: event.pageY - offsetY
+                }
+                console.log(this.position)
             }
-            return null
         },
         delayPopupVisible(visible: boolean, time: number, event: any) {
             const delay = time * 1000
             this.clearDelayTimer()
             if (delay) {
-                const point = event ? {x: event.pageX, y: event.pageY} : null
                 this.delayTimer = tools.createRequestAnimationFrame(() => {
-                    this.popupVisible(visible, point)
+                    this.popupVisible(visible, event)
                     this.clearDelayTimer()
                 }, delay)
             } else this.popupVisible(visible, event)
@@ -136,6 +140,30 @@ export default defineComponent({
             case 'contextmenu':
                 break;
         }
-        return tools.cloneElement(child, newChildProps)
+        const newChild = tools.cloneElement(child, newChildProps)
+        let teleport: any
+        if (this.show || this.forceRender || this._component) {
+            const style = {
+                left: `${this.position.x}px`,
+                top: `${this.position.y}px`
+            }
+            teleport = (
+                <Teleport to={this._container} ref={this.saveContainer}>
+                    <div class={this.prefixCls} ref={this.prefixCls}>
+                        <Transition key="tooltip" name="mi-fade" appear>
+                            { withDirectives((
+                                <div class={`${this.prefixCls}-${this.placement}`} style={this._component ? style : null}>
+                                    <div class={`${this.prefixCls}-content`}>
+                                        <div class={`${this.prefixCls}-arrow`}></div>
+                                        <div class={`${this.prefixCls}-inner`} role="tooltip"></div>
+                                    </div>
+                                </div>
+                            ) as VNode, [[vShow, this.show]]) }
+                        </Transition>
+                    </div>
+                </Teleport>
+            )
+        }
+        return [teleport, newChild]
     }
 })
