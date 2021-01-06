@@ -86,16 +86,18 @@ export default defineComponent({
             this.clearDelayTimer()
             this.show = popupVisible
             if (event) {
-                const target = event.target
-                const width = target.offsetWidth
-                const offsetX = event.offsetX
-                const offsetY = event.offsetY
-                const halfWidth = Math.round(width / 2 * 100) / 100
-                this.position = {
-                    x: event.pageX - offsetX,
-                    y: event.pageY - offsetY
-                }
-                console.log(this.position)
+                this.$nextTick(() => {
+                    const elem = this.$refs[`${this.prefixCls}-content`]
+                    const width = elem.offsetWidth
+                    const height = elem.offsetHeight
+                    const target = event.target
+                    const halfWidth = Math.round(target.offsetWidth / 2 * 100) / 100
+                    const offsetX = event.offsetX
+                    const offsetY = event.offsetY
+                    let x = event.pageX + (halfWidth - offsetX) - (Math.round(width / 2 * 100) / 100)
+                    let y = event.pageY - offsetY - height - 16
+                    this.position = {x, y}
+                })
             }
         },
         delayPopupVisible(visible: boolean, time: number, event: any) {
@@ -151,11 +153,13 @@ export default defineComponent({
                 <Teleport to={this._container} ref={this.saveContainer}>
                     <div class={this.prefixCls} ref={this.prefixCls}>
                         <Transition key="tooltip" name="mi-fade" appear>
-                            { withDirectives((
+                            { () => withDirectives((
                                 <div class={`${this.prefixCls}-${this.placement}`} style={this._component ? style : null}>
-                                    <div class={`${this.prefixCls}-content`}>
+                                    <div class={`${this.prefixCls}-content`} ref={`${this.prefixCls}-content`}>
                                         <div class={`${this.prefixCls}-arrow`}></div>
-                                        <div class={`${this.prefixCls}-inner`} role="tooltip"></div>
+                                        <div class={`${this.prefixCls}-inner`} role="tooltip">
+                                            <span>文本提示</span>
+                                        </div>
                                     </div>
                                 </div>
                             ) as VNode, [[vShow, this.show]]) }

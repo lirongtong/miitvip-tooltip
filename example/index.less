@@ -11,3 +11,53 @@ body {
     justify-content: center;
     flex-direction: column;
 }
+
+.mi-tooltips {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-direction: column;
+}
+
+.btn {
+    width: 130px;
+    height: 36px;
+    letter-spacing: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    border: 1px solid fade(#000, 10%);
+    border-radius: 4px;
+    cursor: pointer;
+    margin-right: 8px;
+
+    &:last-child {
+        margin-right: 0;
+    }
+}
+
+.top, .bottom {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 680px;
+}
+
+.middle {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 680px;
+    margin-top: 8px;
+    margin-bottom: 8px;
+
+    .btn {
+        margin-bottom: 8px;
+        margin-right: 0;
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
+}

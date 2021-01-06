@@ -1,8 +1,51 @@
 <template>
     <div class="mi-tooltips">
-        <mi-tooltip title="文本提示">
-            <button>Nice</button>
-        </mi-tooltip>
+        <div class="top">
+            <mi-tooltip title="文本提示">
+                <a class="btn">TopLeft</a>
+            </mi-tooltip>
+            <mi-tooltip title="文本提示">
+                <a class="btn">Top</a>
+            </mi-tooltip>
+            <mi-tooltip title="文本提示">
+                <a class="btn">TopRight</a>
+            </mi-tooltip>
+        </div>
+        <div class="middle">
+            <div class="left">
+                <mi-tooltip title="文本提示">
+                    <a class="btn">LeftTop</a>
+                </mi-tooltip>
+                <mi-tooltip title="文本提示">
+                    <a class="btn">Left</a>
+                </mi-tooltip>
+                <mi-tooltip title="文本提示">
+                    <a class="btn">LeftBottom</a>
+                </mi-tooltip>
+            </div>
+            <div class="right">
+                <mi-tooltip title="文本提示">
+                    <a class="btn">RightTop</a>
+                </mi-tooltip>
+                <mi-tooltip title="文本提示">
+                    <a class="btn">Right</a>
+                </mi-tooltip>
+                <mi-tooltip title="文本提示">
+                    <a class="btn">RightBottom</a>
+                </mi-tooltip>
+            </div>
+        </div>
+        <div class="bottom">
+            <mi-tooltip title="文本提示">
+                <a class="btn">BottomLeft</a>
+            </mi-tooltip>
+            <mi-tooltip title="文本提示">
+                <a class="btn">Bottom</a>
+            </mi-tooltip>
+            <mi-tooltip title="文本提示">
+                <a class="btn">BottomRight</a>
+            </mi-tooltip>
+        </div>
     </div>
 </template>
 

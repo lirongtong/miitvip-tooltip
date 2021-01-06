@@ -65,11 +65,11 @@ class MiTools {
         const res = []
         children.forEach(child => {
             if (Array.isArray(child)) {
-                    res.push(...child)
+                res.push(...child)
             } else if (child.type === Fragment) {
-                    res.push(...child.children)
+                res.push(...child.children)
             } else {
-                    res.push(child)
+                res.push(child)
             }
         })
         return res.filter(c => !this.isEmptyElement(c))
