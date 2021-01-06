@@ -1,13 +1,13 @@
 <template>
     <div class="mi-tooltips">
         <div class="top">
-            <mi-tooltip title="文本提示">
+            <mi-tooltip title="文本提示内容">
                 <a class="btn">TopLeft</a>
             </mi-tooltip>
-            <mi-tooltip title="文本提示">
-                <a class="btn">Top</a>
+            <mi-tooltip title="延迟500ms显示<br />延迟1s隐藏" :delay-show="0.5" :delay-hide="1" :force-render="true">
+                <a class="btn">Top ( 延迟 )</a>
             </mi-tooltip>
-            <mi-tooltip title="文本提示">
+            <mi-tooltip title="文本提示内容">
                 <a class="btn">TopRight</a>
             </mi-tooltip>
         </div>

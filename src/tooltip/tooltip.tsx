@@ -1,5 +1,5 @@
 import { defineComponent, Teleport, Transition, VNode, vShow, withDirectives } from 'vue'
-import PropTypes, { getSlot, tuple, getEvents } from '../utils/props'
+import PropTypes, { getSlot, tuple, getEvents, getSlotContent } from '../utils/props'
 import tools from '../utils/tools'
 
 export default defineComponent({
@@ -71,7 +71,7 @@ export default defineComponent({
         },
         onMouseEnter(e: any) {
             this.fireEvents('onMouseEnter', e)
-            this.delayPopupVisible(true, this.delayShow, this.delayShow ? null : e)
+            this.delayPopupVisible(true, this.delayShow, e)
         },
         onMouseLeave(e: any) {
             this.fireEvents('onMouseLeave', e)
@@ -144,29 +144,32 @@ export default defineComponent({
         }
         const newChild = tools.cloneElement(child, newChildProps)
         let teleport: any
-        if (this.show || this.forceRender || this._component) {
-            const style = {
-                left: `${this.position.x}px`,
-                top: `${this.position.y}px`
-            }
-            teleport = (
-                <Teleport to={this._container} ref={this.saveContainer}>
-                    <div class={this.prefixCls} ref={this.prefixCls}>
-                        <Transition key="tooltip" name="mi-fade" appear>
-                            { () => withDirectives((
-                                <div class={`${this.prefixCls}-${this.placement}`} style={this._component ? style : null}>
-                                    <div class={`${this.prefixCls}-content`} ref={`${this.prefixCls}-content`}>
-                                        <div class={`${this.prefixCls}-arrow`}></div>
-                                        <div class={`${this.prefixCls}-inner`} role="tooltip">
-                                            <span>文本提示</span>
+        if (this._container) {
+            if (this.show || this.forceRender || this._component) {
+                const style = {
+                    left: `${this.position.x}px`,
+                    top: `${this.position.y}px`
+                }
+                const title = getSlotContent(this, 'title')
+                teleport = (
+                    <Teleport to={this._container} ref={this.saveContainer}>
+                        <div class={this.prefixCls} ref={this.prefixCls}>
+                            <Transition key="tooltip" name="mi-fade" appear>
+                                { () => withDirectives((
+                                    <div class={`${this.prefixCls}-${this.placement}`} style={this._component ? style : null}>
+                                        <div class={`${this.prefixCls}-content`} ref={`${this.prefixCls}-content`}>
+                                            <div class={`${this.prefixCls}-arrow`}></div>
+                                            <div class={`${this.prefixCls}-inner`} role="tooltip">
+                                                <div innerHTML={title}></div>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            ) as VNode, [[vShow, this.show]]) }
-                        </Transition>
-                    </div>
-                </Teleport>
-            )
+                                ) as VNode, [[vShow, this.show]]) }
+                            </Transition>
+                        </div>
+                    </Teleport>
+                )
+            }
         }
         return [teleport, newChild]
     }
