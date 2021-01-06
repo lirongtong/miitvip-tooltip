@@ -1,10 +1,11 @@
 <template>
     <div class="mi-tooltips">
         <div class="top">
-            <mi-tooltip :visible="visible">
+            <mi-tooltip :visible="visible" placement="topLeft">
                 <template v-slot:title>
                     <p>默认显示提示内容</p>
-                    <p>2s后自动隐藏...</p>
+                    <p>5s后自动隐藏...</p>
+                    <p>试试长文本内容，看看是否定位居左</p>
                 </template>
                 <a class="btn">TopLeft</a>
             </mi-tooltip>
@@ -70,7 +71,7 @@
             setTimeout(() => {
                 this.visible = false
                 this.defaultVisible = false
-            }, 2000)
+            }, 5000)
         }
     })
 </script>

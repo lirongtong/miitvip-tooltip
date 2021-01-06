@@ -62,13 +62,16 @@
         border-radius: 4px;
     }
 
-    &-top &-arrow {
+    &-top &-arrow,
+    &-top-left &-arrow,
+    &-topLeft &-arrow {
         left: 50%;
         transform: translateX(-50%);
         bottom: -12px;
+    }
 
-        &::before {
-            box-shadow:  0 0 7px fade(#f6ca9d, 7%);
-        }
+    &-top-left &-arrow,
+    &-topLeft &-arrow {
+        left: 16px;
     }
 }

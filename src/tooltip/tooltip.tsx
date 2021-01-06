@@ -10,7 +10,7 @@ export default defineComponent({
         visible: PropTypes.bool,
         placement: PropTypes.oneOf(
             tuple(
-                'top', 'topLeft', 'topRight',
+                'top', 'topLeft', 'topRight', 'top-left', 'top-right',
                 'left', 'leftTop', 'leftBottom',
                 'bottom', 'bottomLeft', 'bottomRight',
                 'right', 'rightTop', 'rightBottom'
@@ -26,6 +26,7 @@ export default defineComponent({
         forceRender: PropTypes.bool.def(false),
         delayShow: PropTypes.number.def(0),
         delayHide: PropTypes.number.def(0),
+        autoAdjust: PropTypes.bool.def(true),
         container: PropTypes.oneOfType([PropTypes.func, PropTypes.string, PropTypes.object]),
         destroy: PropTypes.bool.def(false)
     },
@@ -98,6 +99,12 @@ export default defineComponent({
                     const offsetY = event.offsetY
                     let x = event.pageX + (halfWidth - offsetX) - (Math.round(width / 2 * 100) / 100)
                     let y = event.pageY - offsetY - height - 16
+                    switch (this.placement) {
+                        case 'topLeft':
+                        case 'top-left':
+                            x = event.pageX - offsetX
+                            break;
+                    }
                     this.position = {x, y}
                 })
             }
@@ -128,7 +135,7 @@ export default defineComponent({
             const elem = document.getElementById(this.id)
             if (elem) {
                 const elemWidth = elem.offsetWidth
-                this.position = {
+                const position = {
                     x: elem.offsetLeft,
                     y: elem.offsetTop
                 }
@@ -136,8 +143,19 @@ export default defineComponent({
                     const content = this.$refs[`${this.prefixCls}-content`]
                     const width = content.offsetWidth
                     const height = content.offsetHeight
-                    this.position.x -= Math.round((width - elemWidth) / 2 * 100) / 100
-                    this.position.y -= height + 16
+                    this.position = {
+                        x: position.x - (Math.round((width - elemWidth) / 2 * 100) / 100),
+                        y: position.y - (height + 16)
+                    }
+                    switch (this.placement) {
+                        case 'topLeft':
+                        case 'top-left':
+                            this.position = {
+                                x: position.x,
+                                y: position.y - (height + 16)
+                            }
+                            break;
+                    }
                 })
             }
         }
