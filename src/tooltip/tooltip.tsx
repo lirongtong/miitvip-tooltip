@@ -120,6 +120,11 @@ export default defineComponent({
                             x = event.pageX - offsetX - width - 16
                             y = event.pageY + (halfHeight - offsetY) - Math.round(height / 2 * 100) / 100
                             break;
+                        case 'leftBottom':
+                        case 'left-bottom':
+                            x = event.pageX - offsetX - width - 16
+                            y = event.pageY - offsetY + targetHeight - height
+                            break;
                     }
                     this.position = {x, y}
                 })
@@ -179,6 +184,11 @@ export default defineComponent({
                         case 'left':
                             x = position.x - width - 16
                             y = position.y + (Math.round(elemHeight / 2 * 100) / 100) - Math.round(height / 2 * 100) / 100
+                            break;
+                        case 'leftBottom':
+                        case 'left-bottom':
+                            x = position.x - width - 16
+                            y = position.y + elemHeight - height
                             break;
                     }
                     this.position = {x, y}

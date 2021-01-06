@@ -24,14 +24,10 @@
                 <mi-tooltip title="LeftTop 气泡提示 - 文本信息" placement="left-top">
                     <a class="btn">LeftTop</a>
                 </mi-tooltip>
-                <mi-tooltip placement="left" :visible="visible">
-                    <template v-slot:title>
-                        <p>延迟 100ms 显示</p>
-                        <p>延迟 500ms 隐藏</p>
-                    </template>
+                <mi-tooltip title="Left 气泡提示 - 文本信息" placement="left">
                     <a class="btn">Left</a>
                 </mi-tooltip>
-                <mi-tooltip title="文本提示">
+                <mi-tooltip title="LeftBottom 气泡提示 - 文本信息" placement="left-bottom" :visible="visible">
                     <a class="btn">LeftBottom</a>
                 </mi-tooltip>
             </div>
