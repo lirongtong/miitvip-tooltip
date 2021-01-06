@@ -56,7 +56,6 @@
         letter-spacing: 2px;
         color: #fff;
         text-decoration: none;
-        border: 1px solid #f6ca9d;
         line-height: 22px;
         word-wrap: break-word;
         background: fade(#000, 75%);
@@ -91,16 +90,18 @@
     &-left-top &-arrow,
     &-leftBottom &-arrow,
     &-left-bottom &-arrow {
-        right: -16px;
+        right: -18px;
         transform: translateX(-50%);
 
         &:before {
-            transform: translateX(-8px) rotate(45deg);
+            transform: translateX(-9px) rotate(45deg);
         }
     }
 
     &-left &-arrow {
+        transform: translateY(-50%);
         top: 50%;
+        right: -12px;
     }
 
     &-left-top &-arrow,

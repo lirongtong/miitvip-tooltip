@@ -95,7 +95,9 @@ export default defineComponent({
                     const height = elem.offsetHeight
                     const target = event.target
                     const targetWidth = target.offsetWidth
+                    const targetHeight = target.offsetHeight
                     const halfWidth = Math.round(targetWidth / 2 * 100) / 100
+                    const halfHeight = Math.round(targetHeight / 2 * 100) / 100
                     const offsetX = event.offsetX
                     const offsetY = event.offsetY
                     let x = event.pageX + (halfWidth - offsetX) - (Math.round(width / 2 * 100) / 100)
@@ -113,6 +115,10 @@ export default defineComponent({
                         case 'left-top':
                             x = event.pageX - offsetX - width - 16
                             y = event.pageY - offsetY
+                            break;
+                        case 'left':
+                            x = event.pageX - offsetX - width - 16
+                            y = event.pageY + (halfHeight - offsetY) - Math.round(height / 2 * 100) / 100
                             break;
                     }
                     this.position = {x, y}
@@ -145,6 +151,7 @@ export default defineComponent({
             const elem = document.getElementById(this.id)
             if (elem) {
                 const elemWidth = elem.offsetWidth
+                const elemHeight = elem.offsetHeight
                 const position = {
                     x: elem.offsetLeft,
                     y: elem.offsetTop
@@ -168,6 +175,10 @@ export default defineComponent({
                         case 'left-top':
                             x = position.x - width - 16
                             y = position.y
+                            break;
+                        case 'left':
+                            x = position.x - width - 16
+                            y = position.y + (Math.round(elemHeight / 2 * 100) / 100) - Math.round(height / 2 * 100) / 100
                             break;
                     }
                     this.position = {x, y}
