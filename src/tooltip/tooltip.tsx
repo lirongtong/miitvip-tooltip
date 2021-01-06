@@ -6,7 +6,7 @@ export default defineComponent({
     name: 'MiTooltip',
     inheritAttrs: false,
     props: {
-        title: PropTypes.any.isRequired,
+        title: PropTypes.any,
         visible: PropTypes.bool,
         placement: PropTypes.oneOf(
             tuple(
@@ -22,6 +22,7 @@ export default defineComponent({
                 'focus', 'contextmenu'
             )
         ).def('hover'),
+        className: PropTypes.string,
         forceRender: PropTypes.bool.def(false),
         delayShow: PropTypes.number.def(0),
         delayHide: PropTypes.number.def(0),
@@ -35,6 +36,7 @@ export default defineComponent({
     },
     data() {
         return {
+            id: `mi-${tools.uid()}`,
             prefixCls: 'mi-tooltip',
             originEvents: {},
             show: this.$props.visible,
@@ -122,12 +124,29 @@ export default defineComponent({
     },
     mounted() {
         this.createContainer()
+        if (this.forceRender || this.show) {
+            const elem = document.getElementById(this.id)
+            if (elem) {
+                const elemWidth = elem.offsetWidth
+                this.position = {
+                    x: elem.offsetLeft,
+                    y: elem.offsetTop
+                }
+                this.$nextTick(() => {
+                    const content = this.$refs[`${this.prefixCls}-content`]
+                    const width = content.offsetWidth
+                    const height = content.offsetHeight
+                    this.position.x -= Math.round((width - elemWidth) / 2 * 100) / 100
+                    this.position.y -= height + 16
+                })
+            }
+        }
     },
     render() {
         const children = tools.filterEmpty(getSlot(this))
         const child = children[0]
         this.originEvents = getEvents(child)
-        const newChildProps = {key: 'trigger'} as any
+        const newChildProps = {key: 'trigger', id: this.id} as any
         switch (this.trigger) {
             case 'hover':
                 newChildProps.onMouseEnter = this.onMouseEnter
@@ -150,17 +169,17 @@ export default defineComponent({
                     left: `${this.position.x}px`,
                     top: `${this.position.y}px`
                 }
-                const title = getSlotContent(this, 'title')
+                const title = <div>{ getSlotContent(this, 'title') }</div>
                 teleport = (
                     <Teleport to={this._container} ref={this.saveContainer}>
-                        <div class={this.prefixCls} ref={this.prefixCls}>
+                        <div class={this.prefixCls + `${this.className ? ` ${this.className}` : ''}`} ref={this.prefixCls}>
                             <Transition key="tooltip" name="mi-fade" appear>
                                 { () => withDirectives((
                                     <div class={`${this.prefixCls}-${this.placement}`} style={this._component ? style : null}>
                                         <div class={`${this.prefixCls}-content`} ref={`${this.prefixCls}-content`}>
                                             <div class={`${this.prefixCls}-arrow`}></div>
                                             <div class={`${this.prefixCls}-inner`} role="tooltip">
-                                                <div innerHTML={title}></div>
+                                                { title }
                                             </div>
                                         </div>
                                     </div>

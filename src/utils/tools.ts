@@ -135,6 +135,30 @@ class MiTools {
             ).call(this, id)
             : clearTimeout(id)
     }
+
+    random(): string {
+        return (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1)
+    }
+
+    /**
+     * Generate unique string.
+     * @param upper
+     * @returns {string}
+     */
+    uid(upper = false, prefix?: string): string {
+        let str = (
+            this.random() +
+            this.random() +
+            this.random() +
+            this.random() +
+            this.random() +
+            this.random() +
+            this.random() +
+            this.random()
+        ).toLocaleUpperCase()
+        if (prefix) str = prefix + str
+        return upper ? str.toUpperCase() : str.toLowerCase()
+    }
 }
 
 export default new MiTools
