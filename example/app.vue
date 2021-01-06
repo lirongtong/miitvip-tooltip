@@ -1,11 +1,10 @@
 <template>
     <div class="mi-tooltips">
         <div class="top">
-            <mi-tooltip :visible="visible" placement="topLeft">
+            <mi-tooltip placement="topLeft">
                 <template v-slot:title>
                     <p>默认显示提示内容</p>
                     <p>5s后自动隐藏...</p>
-                    <p>试试长文本内容，看看是否定位居左</p>
                 </template>
                 <a class="btn">TopLeft</a>
             </mi-tooltip>
@@ -16,7 +15,7 @@
                 </template>
                 <a class="btn">Top ( 延迟 )</a>
             </mi-tooltip>
-            <mi-tooltip title="文本提示内容">
+            <mi-tooltip title="居右的气泡提示文本" :visible="visible" placement="topRight">
                 <a class="btn">TopRight</a>
             </mi-tooltip>
         </div>

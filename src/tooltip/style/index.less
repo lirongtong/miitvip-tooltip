@@ -64,14 +64,24 @@
 
     &-top &-arrow,
     &-top-left &-arrow,
-    &-topLeft &-arrow {
-        left: 50%;
+    &-topLeft &-arrow,
+    &-topRight &-arrow,
+    &-top-right &-arrow {
         transform: translateX(-50%);
         bottom: -12px;
+    }
+
+    &-top &-arrow {
+        left: 50%;
     }
 
     &-top-left &-arrow,
     &-topLeft &-arrow {
         left: 16px;
+    }
+
+    &-top-right &-arrow,
+    &-topRight &-arrow {
+        right: 8px;
     }
 }
