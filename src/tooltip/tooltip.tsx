@@ -109,6 +109,11 @@ export default defineComponent({
                         case 'top-right':
                             x = event.pageX + (targetWidth - offsetX) - width
                             break;
+                        case 'leftTop':
+                        case 'left-top':
+                            x = event.pageX - offsetX - width - 16
+                            y = event.pageY - offsetY
+                            break;
                     }
                     this.position = {x, y}
                 })
@@ -159,6 +164,11 @@ export default defineComponent({
                         case 'top-right':
                             x = position.x + elemWidth - width
                             break;
+                        case 'leftTop':
+                        case 'left-top':
+                            x = position.x - width - 16
+                            y = position.y
+                            break;
                     }
                     this.position = {x, y}
                 })
@@ -196,7 +206,7 @@ export default defineComponent({
                 teleport = (
                     <Teleport to={this._container} ref={this.saveContainer}>
                         <div class={this.prefixCls + `${this.className ? ` ${this.className}` : ''}`} ref={this.prefixCls}>
-                            <Transition key="tooltip" name="mi-fade" appear>
+                            <Transition key="tooltip" name="mi-scale" appear>
                                 { () => withDirectives((
                                     <div class={`${this.prefixCls}-${this.placement}`} style={this._component ? style : null}>
                                         <div class={`${this.prefixCls}-content`} ref={`${this.prefixCls}-content`}>

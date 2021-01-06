@@ -15,13 +15,13 @@
                 </template>
                 <a class="btn">Top ( 延迟 )</a>
             </mi-tooltip>
-            <mi-tooltip title="居右的气泡提示文本" :visible="visible" placement="topRight">
+            <mi-tooltip title="居右的气泡提示文本" placement="topRight">
                 <a class="btn">TopRight</a>
             </mi-tooltip>
         </div>
         <div class="middle">
             <div class="left">
-                <mi-tooltip title="文本提示">
+                <mi-tooltip title="文本提示" :visible="visible" placement="left-top">
                     <a class="btn">LeftTop</a>
                 </mi-tooltip>
                 <mi-tooltip title="文本提示">

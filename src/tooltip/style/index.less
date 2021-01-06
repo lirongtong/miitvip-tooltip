@@ -1,4 +1,5 @@
-@mi-tooltip: mi-tooltip;
+@mi-prefix: mi-;
+@mi-tooltip: ~'@{mi-prefix}tooltip';
 
 .@{mi-tooltip} {
     position: absolute;
@@ -12,6 +13,7 @@
         box-sizing: border-box;
         font-size: 14px;
         position: absolute;
+        transition: all .1s ease;
         z-index: 1060;
     }
 
@@ -55,7 +57,6 @@
         color: #fff;
         text-decoration: none;
         border: 1px solid #f6ca9d;
-        border-bottom: none;
         line-height: 22px;
         word-wrap: break-word;
         background: fade(#000, 75%);
@@ -83,5 +84,47 @@
     &-top-right &-arrow,
     &-topRight &-arrow {
         right: 8px;
+    }
+
+    &-left &-arrow,
+    &-leftTop &-arrow,
+    &-left-top &-arrow,
+    &-leftBottom &-arrow,
+    &-left-bottom &-arrow {
+        right: -16px;
+        transform: translateX(-50%);
+
+        &:before {
+            transform: translateX(-8px) rotate(45deg);
+        }
+    }
+
+    &-left &-arrow {
+        top: 50%;
+    }
+
+    &-left-top &-arrow,
+    &-leftTop &-arrow {
+        top: 6px;
+    }
+
+    &-left-bottom &-arrow,
+    &-leftBottom &-arrow {
+        bottom: 6px;
+    }
+}
+
+.@{mi-prefix} {
+    /** Scale */
+    &scale-enter-active,
+    &scale-leave-active {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    &scale-enter-from,
+    &scale-leave-to {
+        transform: scale(0);
+        opacity: 0
     }
 }
