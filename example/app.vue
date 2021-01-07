@@ -1,5 +1,5 @@
 <template>
-    <div class="mi-tooltips">
+    <div class="mi-tooltips" :class="isMobile() ? ' mi-tooltips-mobile' : ''">
         <div class="top">
             <mi-tooltip placement="topLeft" :visible="visible">
                 <template v-slot:title>
@@ -7,7 +7,7 @@
                     <p>初始化成功后 5s 自动隐藏...</p>
                     <p>即 visible 手动控制显隐</p>
                 </template>
-                <a class="btn">TopLeft</a>
+                <a class="btn">TL</a>
             </mi-tooltip>
             <mi-tooltip :delay-show="0.2" :delay-hide="0.5">
                 <template v-slot:title>
@@ -21,7 +21,7 @@
                     <p>TopRight 气泡提示 - 文本信息</p>
                     <p>自定义背景色 #f6ca9d</p>
                 </template>
-                <a class="btn">TopRight</a>
+                <a class="btn">TR</a>
             </mi-tooltip>
         </div>
         <div class="middle">
@@ -31,7 +31,7 @@
                         <p>LeftTop 气泡提示 - 文本信息</p>
                         <p>自定义文本颜色 #f6ca9d</p>
                     </template>
-                    <a class="btn">LeftTop</a>
+                    <a class="btn">LT</a>
                 </mi-tooltip>
                 <mi-tooltip placement="left" :auto-adjust="false">
                     <template v-slot:title>
@@ -43,7 +43,7 @@
                     <a class="btn">Left</a>
                 </mi-tooltip>
                 <mi-tooltip title="LeftBottom 气泡提示 - 文本信息" placement="left-bottom">
-                    <a class="btn">LeftBottom</a>
+                    <a class="btn">LB</a>
                 </mi-tooltip>
             </div>
             <div class="right">
@@ -52,7 +52,7 @@
                         <p>RightTop 气泡提示 - 文本信息</p>
                         <p>组件内置动画 newspaper</p>
                     </template>
-                    <a class="btn">RightTop</a>
+                    <a class="btn">RT</a>
                 </mi-tooltip>
                 <mi-tooltip placement="right" animation="sticky" :animation-duration="1">
                     <template v-slot:title>
@@ -63,19 +63,24 @@
                     <a class="btn">Right</a>
                 </mi-tooltip>
                 <mi-tooltip title="RightBottom 气泡提示 - 文本信息" placement="right-bottom">
-                    <a class="btn">RightBottom</a>
+                    <a class="btn">RB</a>
                 </mi-tooltip>
             </div>
         </div>
         <div class="bottom">
-            <mi-tooltip title="BottomLeft 气泡提示 - 文本信息" placement="bottom-left">
-                <a class="btn">BottomLeft</a>
+            <mi-tooltip placement="bottom-left" trigger="click">
+                <template v-slot:title>
+                    <p>BottomLeft 气泡提示 - 文本信息</p>
+                    <p>Trigger 事件为 Click</p>
+                    <p>即点击后方可触发 Tooltip 显示/隐藏</p>
+                </template>
+                <a class="btn">BL ( 点击 )</a>
             </mi-tooltip>
             <mi-tooltip title="Bottom 气泡提示 - 文本信息" placement="bottom">
                 <a class="btn">Bottom</a>
             </mi-tooltip>
             <mi-tooltip title="BottomRight 气泡提示 - 文本信息" placement="bottom-right">
-                <a class="btn">BottomRight</a>
+                <a class="btn">BR</a>
             </mi-tooltip>
         </div>
     </div>
@@ -88,6 +93,20 @@
             return {
                 visible: true,
                 defaultVisible: true
+            }
+        },
+        methods: {
+            isMobile(): boolean {
+                const agent = navigator.userAgent,
+                    agents = ['Android', 'iPhone', 'SymbianOS', 'Windows Phone', 'iPad', 'iPod']
+                let mobile = false
+                for (let i = 0, len = agents.length; i < len; i++) {
+                    if (agent.indexOf(agents[i]) > 0) {
+                        mobile = true
+                        break
+                    }
+                }
+                return mobile
             }
         },
         mounted() {

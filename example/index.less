@@ -36,7 +36,8 @@ p {
     cursor: pointer;
     margin-right: 8px;
 
-    &:hover {
+    &:hover, &:active, &:focus, &:visited, &:link {
+        background: #fff;
         border-color: #f6ca9d;
         color: #f6ca9d;
     }
@@ -68,5 +69,13 @@ p {
         &:last-child {
             margin-bottom: 0;
         }
+    }
+}
+
+.mi-tooltips-mobile {
+    .top,
+    .middle,
+    .bottom {
+        width: 100%;
     }
 }

@@ -95,6 +95,27 @@ export default defineComponent({
             this.fireEvents('onMouseLeave', e)
             this.delayPopupVisible(false, this.delayHide)
         },
+        onMouseDown(e: any) {
+            this.fireEvents('onMouseDown', e)
+        },
+        onClick(e: any) {
+            this.fireEvents('onClick', e)
+            if (e && e.preventDefault) e.preventDefault()
+            if (e && e.domEvent) e.domEvent.preventDefault()
+            const visible = !this.show
+            this.delayPopupVisible(visible, visible ? this.delayShow : this.delayHide, e ?? null)
+        },
+        onTouchStart(e: any) {
+            this.fireEvents('onTouchstart', e)
+        },
+        onFocus(e: any) {
+            this.fireEvents('onFocus', e)
+            this.delayPopupVisible(true, this.delayShow, e)
+        },
+        onBlur(e: any) {
+            this.fireEvents('onBlur', e)
+            this.delayPopupVisible(false, this.delayHide)
+        },
         fireEvents(type: string, e: any) {
             if (this.originEvents[type]) this.originEvents[type](e)
             const event = this.$props[type] || this.$attrs[type]
@@ -113,40 +134,42 @@ export default defineComponent({
                     const targetHeight = target.offsetHeight
                     const halfWidth = Math.round(targetWidth / 2 * 100) / 100
                     const halfHeight = Math.round(targetHeight / 2 * 100) / 100
-                    const offsetX = event.offsetX
-                    const offsetY = event.offsetY
-                    let x = event.pageX + (halfWidth - offsetX) - (Math.round(width / 2 * 100) / 100)
-                    let y = event.pageY - offsetY - height - this.offset
-                    const leftX = event.pageX - offsetX - width - this.offset
-                    const rightX = event.pageX + targetWidth - offsetX + this.offset
-                    const bottomY = event.pageY - offsetY + targetHeight + this.offset
+                    const offsetX = event.offsetX || 0
+                    const offsetY = event.offsetY || 0
+                    const pageX = event.pageX || target.offsetLeft
+                    const pageY = event.pageY || target.offsetTop
+                    let x = pageX + (halfWidth - offsetX) - (Math.round(width / 2 * 100) / 100)
+                    let y = pageY - offsetY - height - this.offset
+                    const leftX = pageX - offsetX - width - this.offset
+                    const rightX = pageX + targetWidth - offsetX + this.offset
+                    const bottomY = pageY - offsetY + targetHeight + this.offset
                     if (this.autoAdjust) this.autoAdjustPlacement(target, elem)
                     switch (this.direction) {
                         case 'topLeft':
                         case 'top-left':
-                            x = event.pageX - offsetX
+                            x = pageX - offsetX
                             break;
                         case 'topRight':
                         case 'top-right':
-                            x = event.pageX + (targetWidth - offsetX) - width
+                            x = pageX + (targetWidth - offsetX) - width
                             break;
                         case 'leftTop':
                         case 'left-top':
                             x = leftX
-                            y = event.pageY - offsetY
+                            y = pageY - offsetY
                             break;
                         case 'left':
                             x = leftX
-                            y = event.pageY + (halfHeight - offsetY) - Math.round(height / 2 * 100) / 100
+                            y = pageY + (halfHeight - offsetY) - Math.round(height / 2 * 100) / 100
                             break;
                         case 'leftBottom':
                         case 'left-bottom':
                             x = leftX
-                            y = event.pageY - offsetY + targetHeight - height
+                            y = pageY - offsetY + targetHeight - height
                             break;
                         case 'bottomLeft':
                         case 'bottom-left':
-                            x = event.pageX - offsetX
+                            x = pageX - offsetX
                             y = bottomY
                             break;
                         case 'bottom':
@@ -154,22 +177,22 @@ export default defineComponent({
                             break;
                         case 'bottomRight':
                         case 'bottom-right':
-                            x = event.pageX - offsetX + targetWidth - width
+                            x = pageX - offsetX + targetWidth - width
                             y = bottomY
                             break;
                         case 'rightTop':
                         case 'right-top':
                             x = rightX
-                            y = event.pageY - offsetY
+                            y = pageY - offsetY
                             break;
                         case 'right':
                             x = rightX
-                            y = event.pageY + (halfHeight - offsetY) - Math.round(height / 2 * 100) / 100
+                            y = pageY + (halfHeight - offsetY) - Math.round(height / 2 * 100) / 100
                             break;
                         case 'rightBottom':
                         case 'right-bottom':
                             x = rightX
-                            y = event.pageY - offsetY + targetHeight - height
+                            y = pageY - offsetY + targetHeight - height
                             break;
                     }
                     this.position = {x, y}
@@ -388,10 +411,13 @@ export default defineComponent({
                 newChildProps.onMouseLeave = this.onMouseLeave
                 break;
             case 'click':
-                newChildProps.onClick = () => console.log('click')
-                newChildProps.onMouseLeave = () => console.log('leave')
+                newChildProps.onClick = this.onClick
+                newChildProps.onMousedown = this.onMouseDown
+                newChildProps.onTouchstart = this.onTouchStart
                 break;
             case 'focus':
+                newChildProps.onFocus = this.onFocus
+                newChildProps.onBlur = this.onBlur
                 break;
             case 'contextmenu':
                 break;
