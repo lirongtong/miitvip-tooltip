@@ -121,6 +121,11 @@ export default defineComponent({
             const event = this.$props[type] || this.$attrs[type]
             if (event) event(e)
         },
+        onContextmenu(e: any) {
+            e.preventDefault()
+            this.fireEvents('onContextmenu', e)
+            this.delayPopupVisible(true, this.delayShow, e)
+        },
         popupVisible(popupVisible: boolean, event: any) {
             this.clearDelayTimer()
             this.show = popupVisible
@@ -420,6 +425,7 @@ export default defineComponent({
                 newChildProps.onBlur = this.onBlur
                 break;
             case 'contextmenu':
+                newChildProps.onContextmenu = this.onContextmenu
                 break;
         }
         const newChild = tools.cloneElement(child, newChildProps)
