@@ -136,8 +136,12 @@ export default defineComponent({
                             break;
                         case 'bottomRight':
                         case 'bottom-right':
-                            x = x = event.pageX - offsetX + targetWidth - width
+                            x = event.pageX - offsetX + targetWidth - width
                             y = event.pageY - offsetY + targetHeight + this.offset
+                            break;
+                        case 'right':
+                            x = event.pageX + targetWidth - offsetX + this.offset
+                            y = event.pageY + (halfHeight - offsetY) - Math.round(height / 2 * 100) / 100
                             break;
                     }
                     this.position = {x, y}
@@ -181,6 +185,9 @@ export default defineComponent({
                     const height = content.offsetHeight
                     let x = position.x - (Math.round((width - elemWidth) / 2 * 100) / 100)
                     let y = position.y - (height + this.offset)
+                    const centerY = position.y + (Math.round(elemHeight / 2 * 100) / 100) - Math.round(height / 2 * 100) / 100
+                    const bottomY = position.y + elemHeight + this.offset
+                    const leftX = position.x - width - this.offset
                     switch (this.placement) {
                         case 'topLeft':
                         case 'top-left':
@@ -192,30 +199,34 @@ export default defineComponent({
                             break;
                         case 'leftTop':
                         case 'left-top':
-                            x = position.x - width - this.offset
+                            x = leftX
                             y = position.y
                             break;
                         case 'left':
-                            x = position.x - width - this.offset
-                            y = position.y + (Math.round(elemHeight / 2 * 100) / 100) - Math.round(height / 2 * 100) / 100
+                            x = leftX
+                            y = centerY
                             break;
                         case 'leftBottom':
                         case 'left-bottom':
-                            x = position.x - width - this.offset
+                            x = leftX
                             y = position.y + elemHeight - height
                             break;
                         case 'bottomLeft':
                         case 'bottom-left':
                             x = position.x
-                            y = position.y + elemHeight + this.offset
+                            y = bottomY
                             break;
                         case 'bottom':
-                            y = position.y + elemHeight + this.offset
+                            y = bottomY
                             break;
                         case 'bottomRight':
                         case 'bottom-right':
                             x = position.x + elemWidth - width
-                            y = position.y + elemHeight + this.offset
+                            y = bottomY
+                            break;
+                        case 'right':
+                            x = position.x + elemWidth + this.offset
+                            y = centerY
                             break;
                     }
                     this.position = {x, y}

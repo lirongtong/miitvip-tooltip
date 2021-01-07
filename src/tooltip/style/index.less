@@ -140,6 +140,23 @@
     &-bottom-right &-arrow {
         right: 16px;
     }
+
+    &-right &-arrow,
+    &-rightTop &-arrow,
+    &-right-top &-arrow,
+    &-rightBottom &-arrow,
+    &-right-bottom &-arrow {
+        left: -12px;
+        transform: translateY(-50%);
+
+        &:before {
+            transform: translateX(9px) rotate(45deg);
+        }
+    }
+
+    &-right &-arrow {
+        top: 50%;
+    }
 }
 
 .@{mi-prefix} {
