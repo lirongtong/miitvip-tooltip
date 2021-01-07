@@ -44,13 +44,13 @@
             </div>
         </div>
         <div class="bottom">
-            <mi-tooltip title="文本提示">
+            <mi-tooltip title="BottomLeft 气泡提示 - 文本信息" placement="bottom-left" :visible="visible">
                 <a class="btn">BottomLeft</a>
             </mi-tooltip>
-            <mi-tooltip title="Bottom 气泡提示 - 文本信息" placement="bottom" :visible="visible">
+            <mi-tooltip title="Bottom 气泡提示 - 文本信息" placement="bottom">
                 <a class="btn">Bottom</a>
             </mi-tooltip>
-            <mi-tooltip title="文本提示">
+            <mi-tooltip title="文本提示" placement="bottom-right">
                 <a class="btn">BottomRight</a>
             </mi-tooltip>
         </div>
