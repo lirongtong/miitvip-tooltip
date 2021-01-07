@@ -139,6 +139,11 @@ export default defineComponent({
                             x = event.pageX - offsetX + targetWidth - width
                             y = event.pageY - offsetY + targetHeight + this.offset
                             break;
+                        case 'rightTop':
+                        case 'right-top':
+                            x = event.pageX + targetWidth - offsetX + this.offset
+                            y = event.pageY - offsetY
+                            break;
                         case 'right':
                             x = event.pageX + targetWidth - offsetX + this.offset
                             y = event.pageY + (halfHeight - offsetY) - Math.round(height / 2 * 100) / 100
@@ -188,6 +193,7 @@ export default defineComponent({
                     const centerY = position.y + (Math.round(elemHeight / 2 * 100) / 100) - Math.round(height / 2 * 100) / 100
                     const bottomY = position.y + elemHeight + this.offset
                     const leftX = position.x - width - this.offset
+                    const rightX = position.x + elemWidth + this.offset
                     switch (this.placement) {
                         case 'topLeft':
                         case 'top-left':
@@ -224,8 +230,18 @@ export default defineComponent({
                             x = position.x + elemWidth - width
                             y = bottomY
                             break;
+                        case 'rightTop':
+                        case 'right-top':
+                            x = rightX
+                            y = position.y
+                            break;
                         case 'right':
-                            x = position.x + elemWidth + this.offset
+                            x = rightX
+                            y = centerY
+                            break;
+                        case 'rightBottom':
+                        case 'right-bottom':
+                            x = rightX
                             y = centerY
                             break;
                     }

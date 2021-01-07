@@ -32,13 +32,13 @@
                 </mi-tooltip>
             </div>
             <div class="right">
-                <mi-tooltip title="文本提示">
+                <mi-tooltip title="RightTop 气泡提示 - 文本信息" placement="right-top" :visible="visible">
                     <a class="btn">RightTop</a>
                 </mi-tooltip>
-                <mi-tooltip title="Right 气泡提示 - 文本信息" placement="right" :visible="visible">
+                <mi-tooltip title="Right 气泡提示 - 文本信息" placement="right">
                     <a class="btn">Right</a>
                 </mi-tooltip>
-                <mi-tooltip title="文本提示">
+                <mi-tooltip title="文本提示" placement="right-bottom">
                     <a class="btn">RightBottom</a>
                 </mi-tooltip>
             </div>
