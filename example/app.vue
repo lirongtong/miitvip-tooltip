@@ -27,7 +27,7 @@
                 <mi-tooltip title="Left 气泡提示 - 文本信息" placement="left">
                     <a class="btn">Left</a>
                 </mi-tooltip>
-                <mi-tooltip title="LeftBottom 气泡提示 - 文本信息" placement="left-bottom" :visible="visible">
+                <mi-tooltip title="LeftBottom 气泡提示 - 文本信息" placement="left-bottom">
                     <a class="btn">LeftBottom</a>
                 </mi-tooltip>
             </div>
@@ -47,7 +47,7 @@
             <mi-tooltip title="文本提示">
                 <a class="btn">BottomLeft</a>
             </mi-tooltip>
-            <mi-tooltip title="文本提示">
+            <mi-tooltip title="Bottom 气泡提示 - 文本信息" placement="bottom" :visible="visible">
                 <a class="btn">Bottom</a>
             </mi-tooltip>
             <mi-tooltip title="文本提示">

@@ -113,6 +113,23 @@
     &-leftBottom &-arrow {
         bottom: 8px;
     }
+
+    &-bottom &-arrow,
+    &-bottomLeft &-arrow,
+    &-bottom-left &-arrow,
+    &-bottomRight &-arrow,
+    &-bottom-right &-arrow {
+        transform: translateX(-50%);
+        left: 50%;
+
+        &:before {
+            transform: translateY(9px) rotate(45deg);
+        }
+    }
+
+    &-bottom &-arrow {
+        top: -12px;
+    }
 }
 
 .@{mi-prefix} {

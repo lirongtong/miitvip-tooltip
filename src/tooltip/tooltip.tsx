@@ -42,6 +42,7 @@ export default defineComponent({
             originEvents: {},
             show: this.$props.visible,
             position: {},
+            offset: 16,
             _container: null,
             _component: null
         }
@@ -101,7 +102,7 @@ export default defineComponent({
                     const offsetX = event.offsetX
                     const offsetY = event.offsetY
                     let x = event.pageX + (halfWidth - offsetX) - (Math.round(width / 2 * 100) / 100)
-                    let y = event.pageY - offsetY - height - 16
+                    let y = event.pageY - offsetY - height - this.offset
                     switch (this.placement) {
                         case 'topLeft':
                         case 'top-left':
@@ -113,17 +114,20 @@ export default defineComponent({
                             break;
                         case 'leftTop':
                         case 'left-top':
-                            x = event.pageX - offsetX - width - 16
+                            x = event.pageX - offsetX - width - this.offset
                             y = event.pageY - offsetY
                             break;
                         case 'left':
-                            x = event.pageX - offsetX - width - 16
+                            x = event.pageX - offsetX - width - this.offset
                             y = event.pageY + (halfHeight - offsetY) - Math.round(height / 2 * 100) / 100
                             break;
                         case 'leftBottom':
                         case 'left-bottom':
-                            x = event.pageX - offsetX - width - 16
+                            x = event.pageX - offsetX - width - this.offset
                             y = event.pageY - offsetY + targetHeight - height
+                            break;
+                        case 'bottom':
+                            y = event.pageY - offsetY + targetHeight + this.offset
                             break;
                     }
                     this.position = {x, y}
@@ -166,7 +170,7 @@ export default defineComponent({
                     const width = content.offsetWidth
                     const height = content.offsetHeight
                     let x = position.x - (Math.round((width - elemWidth) / 2 * 100) / 100)
-                    let y = position.y - (height + 16)
+                    let y = position.y - (height + this.offset)
                     switch (this.placement) {
                         case 'topLeft':
                         case 'top-left':
@@ -178,17 +182,20 @@ export default defineComponent({
                             break;
                         case 'leftTop':
                         case 'left-top':
-                            x = position.x - width - 16
+                            x = position.x - width - this.offset
                             y = position.y
                             break;
                         case 'left':
-                            x = position.x - width - 16
+                            x = position.x - width - this.offset
                             y = position.y + (Math.round(elemHeight / 2 * 100) / 100) - Math.round(height / 2 * 100) / 100
                             break;
                         case 'leftBottom':
                         case 'left-bottom':
-                            x = position.x - width - 16
+                            x = position.x - width - this.offset
                             y = position.y + elemHeight - height
+                            break;
+                        case 'bottom':
+                            y = position.y + elemHeight + this.offset
                             break;
                     }
                     this.position = {x, y}
