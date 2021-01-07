@@ -22,6 +22,12 @@ export default defineComponent({
                 'focus', 'contextmenu'
             )
         ).def('hover'),
+        animation: PropTypes.oneOf(
+            tuple(
+                'scale', 'newspaper', 'sticky', 'sign', 'flip',
+                'flip-horizontal', 'flip-vertical', 'shake'
+            )
+        ).def('scale'),
         className: PropTypes.string,
         forceRender: PropTypes.bool.def(false),
         delayShow: PropTypes.number.def(0),
@@ -298,7 +304,7 @@ export default defineComponent({
                 teleport = (
                     <Teleport to={this._container} ref={this.saveContainer}>
                         <div class={this.prefixCls + `${this.className ? ` ${this.className}` : ''}`} ref={this.prefixCls}>
-                            <Transition key="tooltip" name="mi-scale" appear>
+                            <Transition key="tooltip" name={`mi-${this.animation}`} appear>
                                 { () => withDirectives((
                                     <div class={`${this.prefixCls}-${this.placement}`} style={this._component ? style : null}>
                                         <div class={`${this.prefixCls}-content`} ref={`${this.prefixCls}-content`} style={boxShadow}>

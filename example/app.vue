@@ -41,7 +41,11 @@
                 </mi-tooltip>
             </div>
             <div class="right">
-                <mi-tooltip title="RightTop 气泡提示 - 文本信息" placement="right-top">
+                <mi-tooltip placement="right-top" animation="newspaper">
+                    <template v-slot:title>
+                        <p>RightTop 气泡提示 - 文本信息</p>
+                        <p>组件内置动画 newspaper</p>
+                    </template>
                     <a class="btn">RightTop</a>
                 </mi-tooltip>
                 <mi-tooltip title="Right 气泡提示 - 文本信息" placement="right">
