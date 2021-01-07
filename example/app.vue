@@ -33,7 +33,13 @@
                     </template>
                     <a class="btn">LeftTop</a>
                 </mi-tooltip>
-                <mi-tooltip title="Left 气泡提示 - 文本信息" placement="left">
+                <mi-tooltip placement="left" :auto-adjust="false">
+                    <template v-slot:title>
+                        <p>Left 气泡提示 - 文本信息</p>
+                        <p>默认自动调整显示位置（最佳适配）</p>
+                        <p>当前设置为不自动适配位置</p>
+                        <p>即内容看不见也改变显示位置</p>
+                    </template>
                     <a class="btn">Left</a>
                 </mi-tooltip>
                 <mi-tooltip title="LeftBottom 气泡提示 - 文本信息" placement="left-bottom">

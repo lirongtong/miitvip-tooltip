@@ -42,6 +42,10 @@ export default defineComponent({
     watch: {
         visible(val: boolean) {
             this.show = val
+        },
+        direction() {
+            console.log(3)
+            this.$forceUpdate()
         }
     },
     data() {
@@ -51,6 +55,7 @@ export default defineComponent({
             originEvents: {},
             show: this.$props.visible,
             position: {},
+            direction: this.$props.placement,
             offset: 16,
             _container: null,
             _component: null
@@ -115,7 +120,8 @@ export default defineComponent({
                     const leftX = event.pageX - offsetX - width - this.offset
                     const rightX = event.pageX + targetWidth - offsetX + this.offset
                     const bottomY = event.pageY - offsetY + targetHeight + this.offset
-                    switch (this.placement) {
+                    if (this.autoAdjust) this.autoAdjustPlacement(target, elem)
+                    switch (this.direction) {
                         case 'topLeft':
                         case 'top-left':
                             x = event.pageX - offsetX
@@ -185,6 +191,109 @@ export default defineComponent({
                 tools.cancelRequestAnimationFrame(this.delayTimer)
                 this.delayTimer = null
             }
+        },
+        autoAdjustPlacement(
+            targetElem: HTMLElement,
+            contentElem: HTMLElement
+        ) {
+            if (targetElem && contentElem) {
+                let direction = this.direction
+                const width = document.body.clientWidth
+                const height = document.body.clientHeight
+                const targetWidth = targetElem.offsetWidth
+                const targetHeight = targetElem.offsetHeight
+                const contentWidth = contentElem.offsetWidth
+                const contentHeight = contentElem.offsetHeight
+                const offset = {
+                    top: targetElem.offsetTop,
+                    left: targetElem.offsetLeft,
+                    right: width - targetWidth - targetElem.offsetLeft,
+                    bottom: height - targetHeight - targetElem.offsetTop
+                }
+                switch (this.placement) {
+                    case 'left':
+                    case 'leftTop':
+                    case 'left-top':
+                    case 'leftBottom':
+                    case 'left-bottom':
+                        if (
+                            offset.left < contentWidth &&
+                            offset.right > offset.left
+                        ) {
+                            if (this.direction === 'left') direction = 'right'
+                            if (
+                                this.direction === 'leftTop' ||
+                                this.direction === 'left-top'
+                            ) direction = 'right-top'
+                            if (
+                                this.direction === 'leftBottom' ||
+                                this.direction === 'left-bottom'
+                            ) direction = 'right-bottom'
+                        } else direction = this.placement
+                        break;
+                    case 'right':
+                    case 'rightTop':
+                    case 'right-top':
+                    case 'rightBottom':
+                    case 'right-bottom':
+                        if (
+                            offset.right < contentWidth &&
+                            offset.left > offset.right
+                        ) {
+                            if (this.direction === 'right') direction = 'left'
+                            if (
+                                this.direction === 'rightTop' ||
+                                this.direction === 'right-top'
+                            ) direction = 'left-top'
+                            if (
+                                this.direction === 'rightBottom' ||
+                                this.direction === 'right-bottom'
+                            ) direction = 'left-bottom'
+                        } else direction = this.placement
+                        break;
+                    case 'top':
+                    case 'topLeft':
+                    case 'top-left':
+                    case 'topRight':
+                    case 'top-right':
+                        if (
+                            offset.top < contentHeight &&
+                            offset.bottom > offset.top
+                        ) {
+                            if (this.direction === 'top') direction = 'bottom'
+                            if (
+                                this.direction === 'topLeft' ||
+                                this.direction === 'top-left'
+                            ) direction = 'bottom-left'
+                            if (
+                                this.direction === 'topRight' ||
+                                this.direction === 'top-right'
+                            ) direction = 'bottom-right'
+                        } else direction = this.placement
+                        break;
+                    case 'bottom':
+                    case 'bottomLeft':
+                    case 'bottom-left':
+                    case 'bottomRight':
+                    case 'bottom-right':
+                        if (
+                            offset.bottom < contentHeight &&
+                            offset.top > offset.bottom
+                        ) {
+                            if (this.direction === 'bottom') direction = 'top'
+                            if (
+                                this.direction === 'bottomLeft' ||
+                                this.direction === 'bottom-left'
+                            ) direction = 'top-left'
+                            if (
+                                this.direction === 'bottomRight' ||
+                                this.direction === 'bottom-right'
+                            ) direction = 'top-right'
+                        } else direction = this.placement
+                        break;
+                }
+                if (direction !== this.direction) this.direction = direction
+            }
         }
     },
     beforeUnmount() {
@@ -211,7 +320,8 @@ export default defineComponent({
                     const bottomY = position.y + elemHeight + this.offset
                     const leftX = position.x - width - this.offset
                     const rightX = position.x + elemWidth + this.offset
-                    switch (this.placement) {
+                    if (this.autoAdjust) this.autoAdjustPlacement(elem, content)
+                    switch (this.direction) {
                         case 'topLeft':
                         case 'top-left':
                             x = position.x
@@ -311,7 +421,7 @@ export default defineComponent({
                             class={this.prefixCls + `${this.className ? ` ${this.className}` : ''}`}>
                             <Transition key="tooltip" name={`mi-${this.animation}`} appear>
                                 { () => withDirectives((
-                                    <div class={`${this.prefixCls}-${this.placement}`} style={this._component ? style : null}>
+                                    <div class={`${this.prefixCls}-${this.direction}`} style={this._component ? style : null}>
                                         <div class={`${this.prefixCls}-content`} ref={`${this.prefixCls}-content`} style={boxShadow}>
                                             <div class={`${this.prefixCls}-arrow`}>
                                                 <span class={`${this.prefixCls}-arrow-inner`} style={arrowColor}></span>
