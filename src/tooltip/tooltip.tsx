@@ -28,7 +28,9 @@ export default defineComponent({
         delayHide: PropTypes.number.def(0),
         autoAdjust: PropTypes.bool.def(true),
         container: PropTypes.oneOfType([PropTypes.func, PropTypes.string, PropTypes.object]),
-        destroy: PropTypes.bool.def(false)
+        destroy: PropTypes.bool.def(false),
+        bgColor: PropTypes.string,
+        textColor: PropTypes.string
     },
     watch: {
         visible(val: boolean) {
@@ -285,16 +287,25 @@ export default defineComponent({
                     left: `${this.position.x}px`,
                     top: `${this.position.y}px`
                 }
-                const title = <div>{ getSlotContent(this, 'title') }</div>
+                const bgColor = {background: this.bgColor ?? null}
+                const boxShadow = {boxShadow: this.bgColor ? `0 0 6px ${this.bgColor}` : null}
+                const arrowColor = {
+                    background: this.bgColor ?? null,
+                    boxShadow: this.bgColor ? `0 0 4px ${this.bgColor}` : null
+                }
+                const textColor = {color: this.textColor ?? null}
+                const title = <div style={textColor}>{ getSlotContent(this, 'title') }</div>
                 teleport = (
                     <Teleport to={this._container} ref={this.saveContainer}>
                         <div class={this.prefixCls + `${this.className ? ` ${this.className}` : ''}`} ref={this.prefixCls}>
                             <Transition key="tooltip" name="mi-scale" appear>
                                 { () => withDirectives((
                                     <div class={`${this.prefixCls}-${this.placement}`} style={this._component ? style : null}>
-                                        <div class={`${this.prefixCls}-content`} ref={`${this.prefixCls}-content`}>
-                                            <div class={`${this.prefixCls}-arrow`}></div>
-                                            <div class={`${this.prefixCls}-inner`} role="tooltip">
+                                        <div class={`${this.prefixCls}-content`} ref={`${this.prefixCls}-content`} style={boxShadow}>
+                                            <div class={`${this.prefixCls}-arrow`}>
+                                                <span class={`${this.prefixCls}-arrow-inner`} style={arrowColor}></span>
+                                            </div>
+                                            <div class={`${this.prefixCls}-inner`} style={bgColor}>
                                                 { title }
                                             </div>
                                         </div>

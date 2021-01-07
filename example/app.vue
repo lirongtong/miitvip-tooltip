@@ -16,13 +16,21 @@
                 </template>
                 <a class="btn">Top ( 延迟 )</a>
             </mi-tooltip>
-            <mi-tooltip title="TopRight 气泡提示 - 文本信息" placement="topRight">
+            <mi-tooltip placement="topRight" bg-color="#f6ca9d">
+                <template v-slot:title>
+                    <p>TopRight 气泡提示 - 文本信息</p>
+                    <p>自定义背景色 #f6ca9d</p>
+                </template>
                 <a class="btn">TopRight</a>
             </mi-tooltip>
         </div>
         <div class="middle">
             <div class="left">
-                <mi-tooltip title="LeftTop 气泡提示 - 文本信息" placement="left-top">
+                <mi-tooltip placement="left-top" text-color="#f6ca9d">
+                    <template v-slot:title>
+                        <p>LeftTop 气泡提示 - 文本信息</p>
+                        <p>自定义文本颜色 #f6ca9d</p>
+                    </template>
                     <a class="btn">LeftTop</a>
                 </mi-tooltip>
                 <mi-tooltip title="Left 气泡提示 - 文本信息" placement="left">

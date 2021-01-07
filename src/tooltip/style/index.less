@@ -20,6 +20,7 @@
     &-content {
         margin: 0;
         padding: 0;
+        box-shadow: 0 0 6px fade(#000, 30%);
     }
 
     &-arrow {
@@ -31,7 +32,7 @@
         overflow: hidden;
         pointer-events: none;
 
-        &::before {
+        &-inner {
             position: absolute;
             top: 0;
             right: 0;
@@ -41,7 +42,8 @@
             width: 11px;
             height: 11px;
             margin: auto;
-            background-color: fade(#000, 75%);
+            background: fade(#000, 75%);
+            box-shadow: 0 0 4px fade(#000, 15%);
             content: '';
             pointer-events: auto;
             transform: translateY(-9px) rotate(45deg);
@@ -93,7 +95,7 @@
         right: -18px;
         transform: translateX(-50%);
 
-        &:before {
+        &-inner {
             transform: translateX(-9px) rotate(45deg);
         }
     }
@@ -122,7 +124,7 @@
         transform: translateX(-50%);
         top: -12px;
 
-        &:before {
+        &-inner {
             transform: translateY(9px) rotate(45deg);
         }
     }
@@ -149,7 +151,7 @@
         left: -12px;
         transform: translateY(-50%);
 
-        &:before {
+        &-inner {
             transform: translateX(9px) rotate(45deg);
         }
     }
