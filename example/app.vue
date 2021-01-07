@@ -1,16 +1,17 @@
 <template>
     <div class="mi-tooltips">
         <div class="top">
-            <mi-tooltip placement="topLeft">
+            <mi-tooltip placement="topLeft" :visible="visible">
                 <template v-slot:title>
                     <p>初始化时，默认显示提示内容</p>
                     <p>初始化成功后 5s 自动隐藏...</p>
+                    <p>即 visible 手动控制显隐</p>
                 </template>
                 <a class="btn">TopLeft</a>
             </mi-tooltip>
-            <mi-tooltip :delay-show="0.1" :delay-hide="0.5">
+            <mi-tooltip :delay-show="0.2" :delay-hide="0.5">
                 <template v-slot:title>
-                    <p>延迟 100ms 显示</p>
+                    <p>延迟 200ms 显示</p>
                     <p>延迟 500ms 隐藏</p>
                 </template>
                 <a class="btn">Top ( 延迟 )</a>
@@ -32,13 +33,13 @@
                 </mi-tooltip>
             </div>
             <div class="right">
-                <mi-tooltip title="RightTop 气泡提示 - 文本信息" placement="right-top" :visible="visible">
+                <mi-tooltip title="RightTop 气泡提示 - 文本信息" placement="right-top">
                     <a class="btn">RightTop</a>
                 </mi-tooltip>
                 <mi-tooltip title="Right 气泡提示 - 文本信息" placement="right">
                     <a class="btn">Right</a>
                 </mi-tooltip>
-                <mi-tooltip title="文本提示" placement="right-bottom">
+                <mi-tooltip title="RightBottom 气泡提示 - 文本信息" placement="right-bottom">
                     <a class="btn">RightBottom</a>
                 </mi-tooltip>
             </div>
@@ -70,7 +71,7 @@
             setTimeout(() => {
                 this.visible = false
                 this.defaultVisible = false
-            }, 1000)
+            }, 5000)
         }
     })
 </script>

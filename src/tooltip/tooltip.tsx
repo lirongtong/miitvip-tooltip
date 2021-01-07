@@ -103,6 +103,9 @@ export default defineComponent({
                     const offsetY = event.offsetY
                     let x = event.pageX + (halfWidth - offsetX) - (Math.round(width / 2 * 100) / 100)
                     let y = event.pageY - offsetY - height - this.offset
+                    const leftX = event.pageX - offsetX - width - this.offset
+                    const rightX = event.pageX + targetWidth - offsetX + this.offset
+                    const bottomY = event.pageY - offsetY + targetHeight + this.offset
                     switch (this.placement) {
                         case 'topLeft':
                         case 'top-left':
@@ -114,39 +117,44 @@ export default defineComponent({
                             break;
                         case 'leftTop':
                         case 'left-top':
-                            x = event.pageX - offsetX - width - this.offset
+                            x = leftX
                             y = event.pageY - offsetY
                             break;
                         case 'left':
-                            x = event.pageX - offsetX - width - this.offset
+                            x = leftX
                             y = event.pageY + (halfHeight - offsetY) - Math.round(height / 2 * 100) / 100
                             break;
                         case 'leftBottom':
                         case 'left-bottom':
-                            x = event.pageX - offsetX - width - this.offset
+                            x = leftX
                             y = event.pageY - offsetY + targetHeight - height
                             break;
                         case 'bottomLeft':
                         case 'bottom-left':
                             x = event.pageX - offsetX
-                            y = event.pageY - offsetY + targetHeight + this.offset
+                            y = bottomY
                             break;
                         case 'bottom':
-                            y = event.pageY - offsetY + targetHeight + this.offset
+                            y = bottomY
                             break;
                         case 'bottomRight':
                         case 'bottom-right':
                             x = event.pageX - offsetX + targetWidth - width
-                            y = event.pageY - offsetY + targetHeight + this.offset
+                            y = bottomY
                             break;
                         case 'rightTop':
                         case 'right-top':
-                            x = event.pageX + targetWidth - offsetX + this.offset
+                            x = rightX
                             y = event.pageY - offsetY
                             break;
                         case 'right':
-                            x = event.pageX + targetWidth - offsetX + this.offset
+                            x = rightX
                             y = event.pageY + (halfHeight - offsetY) - Math.round(height / 2 * 100) / 100
+                            break;
+                        case 'rightBottom':
+                        case 'right-bottom':
+                            x = rightX
+                            y = event.pageY - offsetY + targetHeight - height
                             break;
                     }
                     this.position = {x, y}
@@ -242,7 +250,7 @@ export default defineComponent({
                         case 'rightBottom':
                         case 'right-bottom':
                             x = rightX
-                            y = centerY
+                            y = position.y + elemHeight - height
                             break;
                     }
                     this.position = {x, y}
