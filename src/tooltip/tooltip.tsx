@@ -28,6 +28,7 @@ export default defineComponent({
                 'flip-horizontal', 'flip-vertical', 'shake'
             )
         ).def('scale'),
+        animationDuration: PropTypes.number,
         className: PropTypes.string,
         forceRender: PropTypes.bool.def(false),
         delayShow: PropTypes.number.def(0),
@@ -291,7 +292,10 @@ export default defineComponent({
             if (this.show || this.forceRender || this._component) {
                 const style = {
                     left: `${this.position.x}px`,
-                    top: `${this.position.y}px`
+                    top: `${this.position.y}px`,
+                    transitionDuration: this.animationDuration
+                        ? `${this.animationDuration}s`
+                        : null
                 }
                 const bgColor = {background: this.bgColor ?? null}
                 const boxShadow = {boxShadow: this.bgColor ? `0 0 6px ${this.bgColor}` : null}
@@ -303,7 +307,8 @@ export default defineComponent({
                 const title = <div style={textColor}>{ getSlotContent(this, 'title') }</div>
                 teleport = (
                     <Teleport to={this._container} ref={this.saveContainer}>
-                        <div class={this.prefixCls + `${this.className ? ` ${this.className}` : ''}`} ref={this.prefixCls}>
+                        <div ref={this.prefixCls}
+                            class={this.prefixCls + `${this.className ? ` ${this.className}` : ''}`}>
                             <Transition key="tooltip" name={`mi-${this.animation}`} appear>
                                 { () => withDirectives((
                                     <div class={`${this.prefixCls}-${this.placement}`} style={this._component ? style : null}>

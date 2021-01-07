@@ -48,7 +48,12 @@
                     </template>
                     <a class="btn">RightTop</a>
                 </mi-tooltip>
-                <mi-tooltip title="Right 气泡提示 - 文本信息" placement="right">
+                <mi-tooltip placement="right" animation="sticky" :animation-duration="1">
+                    <template v-slot:title>
+                        <p>Right 气泡提示 - 文本信息</p>
+                        <p>组件内置动画 sticky</p>
+                        <p>动画过渡时长 1s</p>
+                    </template>
                     <a class="btn">Right</a>
                 </mi-tooltip>
                 <mi-tooltip title="RightBottom 气泡提示 - 文本信息" placement="right-bottom">
