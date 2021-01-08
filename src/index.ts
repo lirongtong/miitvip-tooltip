@@ -6,6 +6,8 @@ const install = (app: App) => {
     return app
 }
 
+export { Tooltip }
+
 export default {
     version: `${process.env.VERSION}`,
     install

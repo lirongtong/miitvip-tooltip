@@ -119,9 +119,11 @@ export default defineComponent({
             if (event) event(e)
         },
         onContextmenu(e: any) {
-            e.preventDefault()
+            if (e && e.preventDefault) e.preventDefault()
+            if (e && e.domEvent) e.domEvent.preventDefault()
             this.fireEvents('onContextmenu', e)
-            this.delayPopupVisible(true, this.delayShow, e)
+            const visible = !this.show
+            this.delayPopupVisible(visible, visible ? this.delayShow : this.delayHide, e ?? null)
         },
         onDocumentClick(e: any) {
             e.preventDefault()
@@ -438,45 +440,46 @@ export default defineComponent({
         }
         const newChild = tools.cloneElement(child, newChildProps)
         let teleport: any
-        if (this._container) {
-            if (this.show || this.forceRender || this._component) {
-                const style = {
-                    left: `${this.position.x}px`,
-                    top: `${this.position.y}px`,
-                    transitionDuration: this.animationDuration
-                        ? `${this.animationDuration}s`
-                        : null
-                }
-                const bgColor = {background: this.bgColor ?? null}
-                const boxShadow = {boxShadow: this.bgColor ? `0 0 6px ${this.bgColor}` : null}
-                const arrowColor = {
-                    background: this.bgColor ?? null,
-                    boxShadow: this.bgColor ? `0 0 4px ${this.bgColor}` : null
-                }
-                const textColor = {color: this.textColor ?? null}
-                const title = <div style={textColor}>{ getSlotContent(this, 'title') }</div>
-                teleport = (
-                    <Teleport to={this._container} ref={this.saveContainer}>
-                        <div ref={this.prefixCls}
-                            class={this.prefixCls + `${this.className ? ` ${this.className}` : ''}`}>
-                            <Transition key="tooltip" name={`mi-${this.animation}`} appear>
-                                { withDirectives((
-                                    <div class={`${this.prefixCls}-${this.direction}`} style={this._component ? style : null}>
-                                        <div class={`${this.prefixCls}-content`} ref={`${this.prefixCls}-content`} style={boxShadow}>
-                                            <div class={`${this.prefixCls}-arrow`}>
-                                                <span class={`${this.prefixCls}-arrow-inner`} style={arrowColor}></span>
-                                            </div>
-                                            <div class={`${this.prefixCls}-inner`} style={bgColor}>
-                                                { title }
-                                            </div>
+        if (
+            this._container &&
+            (this.show || this.forceRender || this._component)
+        ) {
+            const style = {
+                left: `${this.position.x}px`,
+                top: `${this.position.y}px`,
+                transitionDuration: this.animationDuration
+                    ? `${this.animationDuration}s`
+                    : null
+            }
+            const bgColor = {background: this.bgColor ?? null}
+            const boxShadow = {boxShadow: this.bgColor ? `0 0 6px ${this.bgColor}` : null}
+            const arrowColor = {
+                background: this.bgColor ?? null,
+                boxShadow: this.bgColor ? `0 0 4px ${this.bgColor}` : null
+            }
+            const textColor = {color: this.textColor ?? null}
+            const title = <div style={textColor}>{ getSlotContent(this, 'title') }</div>
+            teleport = (
+                <Teleport to={this._container} ref={this.saveContainer}>
+                    <div ref={this.prefixCls}
+                        class={this.prefixCls + `${this.className ? ` ${this.className}` : ''}`}>
+                        <Transition key="tooltip" name={`mi-${this.animation}`} appear>
+                            { withDirectives((
+                                <div class={`${this.prefixCls}-${this.direction}`} style={this._component ? style : null}>
+                                    <div class={`${this.prefixCls}-content`} ref={`${this.prefixCls}-content`} style={boxShadow}>
+                                        <div class={`${this.prefixCls}-arrow`}>
+                                            <span class={`${this.prefixCls}-arrow-inner`} style={arrowColor}></span>
+                                        </div>
+                                        <div class={`${this.prefixCls}-inner`} style={bgColor}>
+                                            { title }
                                         </div>
                                     </div>
-                                ) as VNode, [[vShow, this.show]]) }
-                            </Transition>
-                        </div>
-                    </Teleport>
-                )
-            }
+                                </div>
+                            ) as VNode, [[vShow, this.show]]) }
+                        </Transition>
+                    </div>
+                </Teleport>
+            )
         }
         return [teleport, newChild]
     }
