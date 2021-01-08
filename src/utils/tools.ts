@@ -159,6 +159,59 @@ class MiTools {
         if (prefix) str = prefix + str
         return upper ? str.toUpperCase() : str.toLowerCase()
     }
+
+    /**
+     * Event binding.
+     * @param element
+     * @param event
+     * @param listener
+     * @param useCapture
+     */
+    on(
+        element: Window | HTMLElement,
+        event: keyof HTMLElementEventMap,
+        listener: (
+            this: HTMLDivElement,
+            evt: HTMLElementEventMap[keyof HTMLElementEventMap]
+        ) => any,
+        useCapture = false
+    ) {
+        if (!!document.addEventListener) {
+            if (element && event && listener) element.addEventListener(event, listener, useCapture)
+        } else {
+            if (element && event && listener) (element as any).attachEvent(`on${event}`, listener)
+        }
+    }
+
+    /**
+     * Event unbind.
+     * @param element
+     * @param event
+     * @param listener
+     * @param useCapture
+     */
+    off(
+        element: Window | HTMLElement,
+        event: keyof HTMLElementEventMap,
+        listener: (
+            this: HTMLDivElement,
+            evt: HTMLElementEventMap[keyof HTMLElementEventMap]
+        ) => any,
+        useCapture = false
+    ) {
+        if (!!document.addEventListener) {
+            if (element && event && listener)
+                element.removeEventListener(event, listener, useCapture)
+        } else {
+            if (element && event && listener) (element as any).detachEvent(`on${event}`, listener)
+        }
+    }
+
+    findDOMNode(instance: any) {
+        let node = instance && (instance.$el || instance)
+        while (node && !node.tagName) node = node.nextSibling
+        return node
+    }
 }
 
 export default new MiTools

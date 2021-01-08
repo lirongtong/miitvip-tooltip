@@ -42,10 +42,6 @@ export default defineComponent({
     watch: {
         visible(val: boolean) {
             this.show = val
-        },
-        direction() {
-            console.log(3)
-            this.$forceUpdate()
         }
     },
     data() {
@@ -57,6 +53,7 @@ export default defineComponent({
             position: {},
             direction: this.$props.placement,
             offset: 16,
+            clickOutside: null,
             _container: null,
             _component: null
         }
@@ -125,6 +122,12 @@ export default defineComponent({
             e.preventDefault()
             this.fireEvents('onContextmenu', e)
             this.delayPopupVisible(true, this.delayShow, e)
+        },
+        onDocumentClick(e: any) {
+            e.preventDefault()
+            const target = e.target
+            const root = tools.findDOMNode(this)
+            if (root && !root.contains(target)) this.delayPopupVisible(false, this.delayHide)
         },
         popupVisible(popupVisible: boolean, event: any) {
             this.clearDelayTimer()
@@ -404,6 +407,11 @@ export default defineComponent({
                 })
             }
         }
+        if (
+            !this.clickOutside &&
+            (this.trigger === 'click' ||
+            this.trigger === 'contextmenu')
+        ) this.clickOutside = tools.on(document.body, 'mousedown', this.onDocumentClick)
     },
     render() {
         const children = tools.filterEmpty(getSlot(this))

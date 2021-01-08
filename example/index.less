@@ -3,6 +3,10 @@ body {
     margin: 0;
 }
 
+*, :after, :before {
+    box-sizing: border-box;
+}
+
 p {
     margin: 0;
 }
@@ -23,14 +27,29 @@ p {
     flex-direction: column;
 }
 
+a {
+    background: #fff;
+    color: #000;
+    text-decoration: none;
+    outline: none;
+    box-sizing: border-box;
+    cursor: pointer;
+
+    &:hover {
+        background: #fff;
+        color: #f6ca9d;
+    }
+}
+
 .btn {
-    width: 130px;
+    width: 100px;
     height: 36px;
     letter-spacing: 2px;
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 14px;
+    background: #fff;
     border: 1px solid fade(#000, 10%);
     border-radius: 4px;
     cursor: pointer;
@@ -51,14 +70,14 @@ p {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 680px;
+    width: 520px;
 }
 
 .middle {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    width: 680px;
+    width: 520px;
     margin-top: 8px;
     margin-bottom: 8px;
 

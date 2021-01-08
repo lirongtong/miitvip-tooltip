@@ -14,7 +14,7 @@
                     <p>延迟 200ms 显示</p>
                     <p>延迟 500ms 隐藏</p>
                 </template>
-                <a class="btn">Top ( 延迟 )</a>
+                <a class="btn">T ( 延迟 )</a>
             </mi-tooltip>
             <mi-tooltip placement="topRight" bg-color="#f6ca9d">
                 <template v-slot:title>
@@ -40,7 +40,7 @@
                         <p>当前设置为不自动适配位置</p>
                         <p>即内容看不见也改变显示位置</p>
                     </template>
-                    <a class="btn">Left</a>
+                    <a class="btn">L</a>
                 </mi-tooltip>
                 <mi-tooltip title="LeftBottom 气泡提示 - 文本信息" placement="left-bottom">
                     <a class="btn">LB</a>
@@ -60,7 +60,7 @@
                         <p>组件内置动画 sticky</p>
                         <p>动画过渡时长 1s</p>
                     </template>
-                    <a class="btn">Right</a>
+                    <a class="btn">R</a>
                 </mi-tooltip>
                 <mi-tooltip title="RightBottom 气泡提示 - 文本信息" placement="right-bottom">
                     <a class="btn">RB</a>
@@ -77,7 +77,7 @@
                 <a class="btn">BL ( 点击 )</a>
             </mi-tooltip>
             <mi-tooltip title="Bottom 气泡提示 - 文本信息" placement="bottom">
-                <a class="btn">Bottom</a>
+                <a class="btn">B</a>
             </mi-tooltip>
             <mi-tooltip title="BottomRight 气泡提示 - 文本信息" placement="bottom-right">
                 <a class="btn">BR</a>
