@@ -71,13 +71,18 @@
             <mi-tooltip placement="bottom-left" trigger="click">
                 <template v-slot:title>
                     <p>BottomLeft 气泡提示 - 文本信息</p>
-                    <p>Trigger 事件为 Click</p>
+                    <p>Trigger 事件为 click</p>
                     <p>即点击后方可触发 Tooltip 显示/隐藏</p>
                 </template>
                 <a class="btn">BL ( 点击 )</a>
             </mi-tooltip>
-            <mi-tooltip title="Bottom 气泡提示 - 文本信息" placement="bottom">
-                <a class="btn">B</a>
+            <mi-tooltip placement="bottom" trigger="contextmenu">
+                <template v-slot:title>
+                    <p>Bottom 气泡提示 - 文本信息</p>
+                    <p>Trigger 事件为 contextmenu</p>
+                    <p>即单击鼠标右键后触发</p>
+                </template>
+                <a class="btn">B ( 右键 )</a>
             </mi-tooltip>
             <mi-tooltip title="BottomRight 气泡提示 - 文本信息" placement="bottom-right">
                 <a class="btn">BR</a>

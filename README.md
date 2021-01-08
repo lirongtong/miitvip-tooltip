@@ -45,8 +45,33 @@ app.mount('#app')
 
 ## 示例
 ```vue
+<!-- 基础效果 -->
 <template>
     <mi-tooltip title="提示信息"></mi-tooltip>
+</template>
+
+<!-- 自定义 Title -->
+<template>
+    <mi-tooltip>
+        <template v-slot:title>
+            <p>提示信息</p>
+        </template>
+    </mi-tooltip>
+</template>
+
+<!-- 定制 Trigger 触发事件 -->
+<template>
+    <mi-tooltip title="提示信息" trigger="click"></mi-tooltip>
+</template>
+
+<!-- 自定义背景色 -->
+<template>
+    <mi-tooltip title="提示信息" bg-color="#f6ca9d"></mi-tooltip>
+</template>
+
+<!-- 自定义字体颜色 -->
+<template>
+    <mi-tooltip title="提示信息" text-color="#f6ca9d"></mi-tooltip>
 </template>
 ```
 

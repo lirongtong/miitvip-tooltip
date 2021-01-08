@@ -460,7 +460,7 @@ export default defineComponent({
                         <div ref={this.prefixCls}
                             class={this.prefixCls + `${this.className ? ` ${this.className}` : ''}`}>
                             <Transition key="tooltip" name={`mi-${this.animation}`} appear>
-                                { () => withDirectives((
+                                { withDirectives((
                                     <div class={`${this.prefixCls}-${this.direction}`} style={this._component ? style : null}>
                                         <div class={`${this.prefixCls}-content`} ref={`${this.prefixCls}-content`} style={boxShadow}>
                                             <div class={`${this.prefixCls}-arrow`}>
