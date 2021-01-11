@@ -76,4 +76,4 @@ app.mount('#app')
 ```
 
 ## 更多
-> 更多定制化内容及使用请查看在线示例：[https://component.makeit.vip/tooltip](https://component.makeit.vip/tooltip)
+> 更多定制化内容及使用请查看在线示例：[https://admin.makeit.vip/components/tooltip](https://admin.makeit.vip/components/tooltip)

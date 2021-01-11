@@ -1,6 +1,6 @@
 {
     "name": "makeit-tooltip",
-    "version": "1.0.5",
+    "version": "1.0.6",
     "author": {
         "url": "https://www.makeit.vip",
         "name": "lirongtong",
@@ -28,7 +28,7 @@
     "bugs": {
         "url": "https://github.com/lirongtong/miitvip-tooltip/issues"
     },
-    "homepage": "https://component.makeit.vip/tooltip",
+    "homepage": "https://admin.makeit.vip/components/tooltip",
     "files": [
         "dist",
         "lib",
