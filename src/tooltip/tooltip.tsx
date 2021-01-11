@@ -335,15 +335,15 @@ export default defineComponent({
     mounted() {
         this.createContainer()
         if (this.forceRender || this.show) {
-            const elem = document.getElementById(this.id)
-            if (elem) {
-                const elemWidth = elem.offsetWidth
-                const elemHeight = elem.offsetHeight
-                const position = {
-                    x: elem.offsetLeft,
-                    y: elem.offsetTop
-                }
-                this.$nextTick(() => {
+            this.$nextTick(() => {
+                const elem = document.getElementById(this.id)
+                if (elem) {
+                    const elemWidth = elem.offsetWidth
+                    const elemHeight = elem.offsetHeight
+                    const position = {
+                        x: elem.offsetLeft,
+                        y: elem.offsetTop
+                    }
                     const content = this.$refs[`${this.prefixCls}-content`]
                     const width = content.offsetWidth
                     const height = content.offsetHeight
@@ -406,8 +406,8 @@ export default defineComponent({
                             break;
                     }
                     this.position = {x, y}
-                })
-            }
+                }
+            })
         }
         if (
             !this.clickOutside &&
