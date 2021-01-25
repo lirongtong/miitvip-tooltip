@@ -126,7 +126,6 @@ export default defineComponent({
             this.delayPopupVisible(visible, visible ? this.delayShow : this.delayHide, e ?? null)
         },
         onDocumentClick(e: any) {
-            e.preventDefault()
             const target = e.target
             const root = tools.findDOMNode(this)
             if (root && !root.contains(target)) this.delayPopupVisible(false, this.delayHide)

@@ -1,4 +1,5 @@
 <template>
+    <input />
     <div class="mi-tooltips" :class="isMobile() ? ' mi-tooltips-mobile' : ''">
         <div class="top">
             <mi-tooltip placement="topLeft" :visible="visible">
