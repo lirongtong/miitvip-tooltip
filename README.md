@@ -5,7 +5,7 @@
 </p>
 
 <h1 align="center" color="green">
-    <a href="https://component.makeit.vip/captcha" target="_blank" style="color: #41b995">
+    <a href="https://admin.makeit.vip/components/tooltip" target="_blank" style="color: #41b995">
         Makeit Tooltip
     </a>
 </h1>
