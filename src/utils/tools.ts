@@ -212,6 +212,16 @@ class MiTools {
         while (node && !node.tagName) node = node.nextSibling
         return node
     }
+
+    getElementActualTopLeft (el: HTMLElement, pos = 'top') {
+        let actual = pos === 'left' ? el.offsetLeft : el.offsetTop
+        let current = el.offsetParent as HTMLElement
+        while (current !== null) {
+            actual += pos === 'left' ? current.offsetLeft : current.offsetTop
+            current = current.offsetParent as HTMLElement
+        }
+        return actual
+    }
 }
 
 export default new MiTools

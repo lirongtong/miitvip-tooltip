@@ -145,8 +145,8 @@ export default defineComponent({
                     const halfHeight = Math.round(targetHeight / 2 * 100) / 100
                     const offsetX = event.offsetX || 0
                     const offsetY = event.offsetY || 0
-                    const pageX = event.pageX || target.offsetLeft
-                    const pageY = event.pageY || target.offsetTop
+                    const pageX = event.pageX || tools.getElementActualTopLeft(target, 'left')
+                    const pageY = event.pageY || tools.getElementActualTopLeft(target)
                     let x = pageX + (halfWidth - offsetX) - (Math.round(width / 2 * 100) / 100)
                     let y = pageY - offsetY - height - this.offset
                     const leftX = pageX - offsetX - width - this.offset
@@ -236,11 +236,13 @@ export default defineComponent({
                 const targetHeight = targetElem.offsetHeight
                 const contentWidth = contentElem.offsetWidth
                 const contentHeight = contentElem.offsetHeight
+                const top = tools.getElementActualTopLeft(targetElem)
+                const left = tools.getElementActualTopLeft(targetElem, 'left')
                 const offset = {
-                    top: targetElem.offsetTop,
-                    left: targetElem.offsetLeft,
-                    right: width - targetWidth - targetElem.offsetLeft,
-                    bottom: height - targetHeight - targetElem.offsetTop
+                    top,
+                    left,
+                    right: width - targetWidth - left,
+                    bottom: height - targetHeight - top
                 }
                 switch (this.placement) {
                     case 'left':
@@ -340,8 +342,8 @@ export default defineComponent({
                     const elemWidth = elem.offsetWidth
                     const elemHeight = elem.offsetHeight
                     const position = {
-                        x: elem.offsetLeft,
-                        y: elem.offsetTop
+                        x: tools.getElementActualTopLeft(elem, 'left'),
+                        y: tools.getElementActualTopLeft(elem)
                     }
                     const content = this.$refs[`${this.prefixCls}-content`]
                     const width = content.offsetWidth
