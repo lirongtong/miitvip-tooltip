@@ -11,6 +11,7 @@
 </h1>
 
 <div align="center">
+
 基于 Vue3.0 + Vite 开发的气泡浮层，不承载复杂文本，可以替代系统默认的 title 显示的组件。
 
 [![npm package](https://img.shields.io/npm/v/makeit-tooltip.svg?style=flat-square)](https://www.npmjs.org/package/makeit-tooltip)
